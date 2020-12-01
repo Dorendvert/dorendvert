@@ -1,0 +1,29 @@
+import numpy as np
+def score_game(game_core):
+    '''Запускаем игру 1000 раз, чтобы узнать, как быстро игра угадывает число'''
+    count_ls = []
+    np.random.seed(1)  # фиксируем RANDOM SEED, чтобы ваш эксперимент был воспроизводим!
+    random_array = np.random.randint(1,101, size=(1000))
+    for number in random_array:
+        count_ls.append(game_core(number))
+    score = int(np.mean(count_ls))
+    print(f"Ваш алгоритм угадывает число в среднем за {score} попыток")
+    return(score)
+    
+    def game_core_v3(number):
+    number = np.random.randint(1,101) #Загадываем число
+    start = 1                         #Устанавливаем начальное значение из диапазона выбора случайных чисел 
+    end = 100                         #Устанавливаем конечное значение из диапазона выбора случайных чисел
+    count = 1                         #Счетчик попыток
+    while True:
+        predict = (start+end)//2      #Начинаем угадывать число с середины диапазона
+        count += 1
+        if number == predict:         #Выход из функции
+            break
+        elif predict < number:
+            start = predict + 1       #Увеличиваем начальное значение для сужения диапазона
+        elif predict > number:
+            end = predict - 1         #Уменьшаем конечное значение для сужения диапазона
+    return count
+    
+    score_game(game_core_v3)
